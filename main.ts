@@ -53,6 +53,6 @@ forever(function () {
     if (spriteutils.distanceBetween(Render.getRenderSpriteVariable(), purple_tile) < 0) {
         purple_tile.follow(Render.getRenderSpriteVariable(), 100)
     } else {
-        purple_tile.follow(Render.getRenderSpriteVariable(), 100)
+        purple_tile.follow(Render.getRenderSpriteVariable(), 60)
     }
 })
