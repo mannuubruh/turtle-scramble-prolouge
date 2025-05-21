@@ -15,6 +15,24 @@ game.splash("I told you already!")
 game.splash("we bury our egg at night")
 game.splash("So the crabs don't get us")
 game.splash("Sigh...Go on!")
+let mySprite = sprites.create(img`
+    2 2 2 . 2 . 2 . 2 2 2 . 2 2 2 . 
+    2 . 2 . 2 . 2 . . 2 . . . 2 . . 
+    2 2 2 . 2 . 2 . . 2 . . . 2 . . 
+    2 . . . 2 . 2 . . 2 . . . 2 . . 
+    2 . . . 2 2 2 . . 2 . . . 2 . . 
+    . . . . . . . . . . . . . . . . 
+    2 2 2 . 2 2 2 2 . . 2 2 2 2 . . 
+    2 . . . 2 . . . . . 2 . . . . . 
+    2 2 2 . 2 . 2 2 2 . 2 . 2 2 2 . 
+    2 . . . 2 . . 2 . . 2 . . 2 . . 
+    2 2 2 . 2 2 2 2 . . 2 2 2 2 . . 
+    . . . . . . . . . . . . . . . . 
+    . . . . . . . . . . . . . . . . 
+    . . . . . . 2 2 2 2 2 . . . . . 
+    . . . . . . . 2 2 2 . . . . . . 
+    . . . . . . . . 2 . . . . . . . 
+    `, SpriteKind.Text)
 let Mrsturtle = sprites.create(img`
     . . . 3 . 
     . 7 7 7 3 
@@ -45,22 +63,23 @@ tiles.setCurrentTilemap(tilemap`level0`)
 tiles.placeOnRandomTile(purple_tile, assets.tile`myTile18`)
 tiles.placeOnRandomTile(Render.getRenderSpriteInstance(), assets.tile`myTile15`)
 tiles.placeOnRandomTile(Mrsturtle, assets.tile`myTile13`)
+tiles.placeOnRandomTile(mySprite, assets.tile`myTile17`)
 Mrsturtle.sayText("BEHIND YOU!!")
-for (let value4 of tiles.getTilesByType(sprites.castle.tilePath5)) {
-    tiles.placeOnTile(purple_tile, value4)
-    scene.followPath(purple_tile, scene.aStar(tiles.locationOfSprite(purple_tile), tiles.locationOfSprite(Render.getRenderSpriteVariable())), 50)
-}
-for (let value4 of tiles.getTilesByType(assets.tile`myTile14`)) {
-    tiles.placeOnTile(purple_tile, value4)
-    scene.followPath(purple_tile, scene.aStar(tiles.locationOfSprite(purple_tile), tiles.locationOfSprite(Render.getRenderSpriteVariable())), 50)
-}
 for (let value4 of tiles.getTilesByType(assets.tile`myTile18`)) {
     tiles.placeOnTile(purple_tile, value4)
     scene.followPath(purple_tile, scene.aStar(tiles.locationOfSprite(purple_tile), tiles.locationOfSprite(Render.getRenderSpriteVariable())), 50)
 }
 game.onUpdate(function () {
     if (Render.getRenderSpriteVariable().overlapsWith(purple_tile)) {
-        game.setGameOverMessage(false, "GAME OVER!")
+        game.setGameOverMessage(false, "SCRAMBLED!!!")
+        game.setGameOverEffect(false, effects.dissolve)
         game.gameOver(false)
+    }
+})
+game.onUpdate(function () {
+    if (Render.getRenderSpriteVariable().overlapsWith(mySprite)) {
+        game.setGameOverMessage(true, "Barely Made It!!")
+        game.setGameOverEffect(true, effects.bubbles)
+        game.gameOver(true)
     }
 })
