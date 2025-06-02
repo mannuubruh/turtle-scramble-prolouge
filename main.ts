@@ -8,6 +8,9 @@ namespace SpriteKind {
 scene.onPathCompletion(SpriteKind.Enemy, function (sprite, location) {
     scene.followPath(sprite, scene.aStar(tiles.locationOfSprite(sprite), tiles.locationOfSprite(Render.getRenderSpriteVariable())), 50)
 })
+controller.A.onEvent(ControllerButtonEvent.Pressed, function () {
+    Render.jumpWithHeightAndDuration(Render.getRenderSpriteInstance(), 5, 1000)
+})
 game.splash("Sigh...")
 game.splash("Why are we here again?")
 game.splash("Jarald...")
